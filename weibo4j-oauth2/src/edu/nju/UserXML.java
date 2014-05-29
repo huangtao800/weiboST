@@ -29,30 +29,36 @@ public class UserXML {
 
 	}
 
-	public int getCount() {
+	public User getCount() {
 
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-
+		User user = new User();
+		
 		try {
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			Document document = db.parse(new File("userXML.xml"));
 
 			NodeList list = document.getElementsByTagName("tweetnum");
+			NodeList list2 = document.getElementsByTagName("name");
 
 			Element element = (Element) list.item(0);
+			Element element2 = (Element) list2.item(0);
 
-			String content = element.getTextContent();
-			if (content.equals("")) {
-				return 0;
+			String tweetnum = element.getTextContent();
+			String name = element2.getTextContent();
+			
+			if (tweetnum.equals("")) {
+				user.setTweetnum(0);
 			} else {
-				return Integer.parseInt(content);
+				user.setTweetnum(Integer.parseInt(tweetnum));
 			}
-
+			user.setName("");
+		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return 0;
+		return user;
 		
 	}
 
