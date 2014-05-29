@@ -14,7 +14,7 @@ import weibo4j.util.BareBonesBrowserLaunch;
 public class TestDrive {
 
 	public static AccessToken accessToken;
-	
+	//m;m
 	public static void main(String[] args) throws WeiboException, IOException{
 		// TODO Auto-generated method stub
 		Oauth oauth = new Oauth();
