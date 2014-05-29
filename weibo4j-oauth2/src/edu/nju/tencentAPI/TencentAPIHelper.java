@@ -3,9 +3,12 @@ package edu.nju.tencentAPI;
 import java.net.URI;
 import java.util.Scanner;
 
+import com.tencent.weibo.api.UserAPI;
 import com.tencent.weibo.oauthv2.OAuthV2;
 import com.tencent.weibo.oauthv2.OAuthV2Client;
 import com.tencent.weibo.utils.QHttpClient;
+
+import edu.nju.UserXML;
 
 public class TencentAPIHelper {
 
@@ -14,7 +17,8 @@ public class TencentAPIHelper {
 	//腾讯api
 	public static String TENCENT_API_KEY = "801508152";
 	public static String TENCENT_SECRET_KEY = "2fb1a347c179a2b17a04fb23c54abf6c";
-	private static OAuthV2 oAuth = new OAuthV2();
+	private OAuthV2 oAuth = new OAuthV2();
+	
 	private TencentAPIHelper(){
 		init(oAuth);
 		
@@ -44,7 +48,16 @@ public class TencentAPIHelper {
 			return;
 		}
 		qHttpClient.shutdownConnection();
+		
 	};
+	
+	public void getUser() throws Exception{
+		UserAPI userAPI = new UserAPI(oAuth.getOauthVersion());
+		String user_xml=userAPI.info(oAuth, "xml");
+		
+		
+		UserXML userXML = new UserXML(user_xml);
+	}
 	
 	public static TencentAPIHelper getInstance(){
 		if(instance==null){
