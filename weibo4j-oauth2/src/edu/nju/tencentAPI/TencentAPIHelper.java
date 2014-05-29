@@ -8,6 +8,7 @@ import com.tencent.weibo.oauthv2.OAuthV2;
 import com.tencent.weibo.oauthv2.OAuthV2Client;
 import com.tencent.weibo.utils.QHttpClient;
 
+import edu.nju.User;
 import edu.nju.UserXML;
 
 public class TencentAPIHelper {
@@ -51,12 +52,19 @@ public class TencentAPIHelper {
 		
 	};
 	
-	public void getUser() throws Exception{
+	public User getUser() throws Exception{
 		UserAPI userAPI = new UserAPI(oAuth.getOauthVersion());
 		String user_xml=userAPI.info(oAuth, "xml");
 		
 		
 		UserXML userXML = new UserXML(user_xml);
+		return userXML.getUser();
+	}
+	
+	public void getWeibo() throws Exception{
+		User user=getUser();
+		int weiboNum=user.getTweetnum();
+		
 	}
 	
 	public static TencentAPIHelper getInstance(){

@@ -29,7 +29,7 @@ public class UserXML {
 
 	}
 
-	public User getCount() {
+	public User getUser() {
 
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		User user = new User();
