@@ -1,23 +1,21 @@
-package edu.nju;
+package edu.nju.tencentAPI;
 
 import java.net.URI;
 import java.util.Scanner;
 
-import com.tencent.weibo.api.StatusesAPI;
-import com.tencent.weibo.api.UserAPI;
 import com.tencent.weibo.oauthv2.OAuthV2;
 import com.tencent.weibo.oauthv2.OAuthV2Client;
 import com.tencent.weibo.utils.QHttpClient;
 
-public class TestDriveTencent {
+public class TencentAPIHelper {
+
+	public static TencentAPIHelper instance;
 	
+	//腾讯api
 	public static String TENCENT_API_KEY = "801508152";
 	public static String TENCENT_SECRET_KEY = "2fb1a347c179a2b17a04fb23c54abf6c";
-	
 	private static OAuthV2 oAuth = new OAuthV2();
-
-	public static void main(String[] args) throws Exception {
-		// TODO Auto-generated method stub
+	private TencentAPIHelper(){
 		init(oAuth);
 		
 		// 自定制http连接管理器
@@ -46,34 +44,19 @@ public class TestDriveTencent {
 			return;
 		}
 		qHttpClient.shutdownConnection();
-		
-		
-		UserAPI userAPI = new UserAPI(oAuth.getOauthVersion());
-		String user_xml=userAPI.info(oAuth, "xml");
-		
-//		StatusesAPI statusesAPI = new StatusesAPI(oAuth.getOauthVersion());
-//		String format = "xml";
-//		String pageflag = "0";
-//		String pagetime = "0";
-//		String reqnum = "70";
-//		String lastid = "'0";
-//		String type = "0";
-//		String contenttype = "0";
-//		String resultString = statusesAPI.broadcastTimeline(oAuth, format, pageflag, pagetime,
-//				reqnum, lastid, type, contenttype);
-//		System.out.println();
-//		System.out.println(resultString);
-		
+	};
+	
+	public static TencentAPIHelper getInstance(){
+		if(instance==null){
+			instance=new TencentAPIHelper();
+		}
+		return instance;
 	}
-
+	
 	private static void init(OAuthV2 oAuth) {
 		oAuth.setClientId(TENCENT_API_KEY);
 		oAuth.setClientSecret(TENCENT_SECRET_KEY);
 		oAuth.setRedirectUri("http://www.tencent.com/zh-cn/index.shtml");
-		// oAuth.setAccessToken("02204e5e59c2d22b73fb9b688e9f0c02");
-		// oAuth.setOpenid("42A2ACA51C28782E854A50C5FA14160A");
-		// oAuth.setOpenkey("ECBBC3B17F4190C8824DB652436E5DFA");
-		// oAuth.setExpiresIn("604800");
 	}
 	
 	private static void openBrowser(OAuthV2 oAuth) {
