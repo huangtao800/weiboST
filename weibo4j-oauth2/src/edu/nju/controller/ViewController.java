@@ -30,8 +30,8 @@ public class ViewController {
 		try {
 			ArrayList<WeiboStatus> tencentList = tencentAPIHelper.getWeibo();
 			ArrayList<WeiboStatus> sinaList = sinaAPIHelper.getWeibo();
-			dbHelper.saveWeiboStatus(tencentList);
-			dbHelper.saveWeiboStatus(sinaList);
+			dbHelper.saveWeiboStatusList(tencentList);
+			dbHelper.saveWeiboStatusList(sinaList);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -41,6 +41,13 @@ public class ViewController {
 	public boolean postWeibo(String text){
 		Status sinaStatus = sinaAPIHelper.postWeibo(text);
 		WeiboStatus tencentStatus=tencentAPIHelper.postWeibo(text);
-		return true;
+		
+		
+		if(sinaStatus!=null&&tencentStatus!=null){
+			dbHelper.saveWeiboStatus(tencentStatus);
+			return true;
+		}else {
+			return false;
+		}
 	}
 }

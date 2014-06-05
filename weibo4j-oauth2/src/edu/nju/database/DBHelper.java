@@ -17,6 +17,7 @@ import edu.nju.WeiboStatus;
 public class DBHelper {
 	
 	private static final String SAVE_WEIBO="INSERT INTO weibo(id, text, source, timestamp) VALUES (?,?,?,?)";
+	private static final String SAVE_WEIBO_SYCHRONIZE="INSERT INTO weibo(id, text, source, timestamp,isSynchronize) VALUES (?,?,?,?,?)";
 	public static DBHelper instance;
 	Connection connection;
 	
@@ -44,7 +45,7 @@ public class DBHelper {
 		return instance;
 	}
 
-	public void saveWeiboStatus(ArrayList<WeiboStatus> weiboStatus){
+	public void saveWeiboStatusList(ArrayList<WeiboStatus> weiboStatus){
 		try {
 			PreparedStatement statement = connection.prepareStatement(SAVE_WEIBO);
 			for(int i=0;i<weiboStatus.size();i++){
@@ -65,6 +66,22 @@ public class DBHelper {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public void saveWeiboStatus(WeiboStatus weiboStatus){
+		try {
+			PreparedStatement preparedStatement = connection.prepareStatement(SAVE_WEIBO_SYCHRONIZE);
+			preparedStatement.setString(1, weiboStatus.getId());
+			preparedStatement.setString(2, weiboStatus.getText());
+			preparedStatement.setString(3, "t");
+			preparedStatement.setString(4, weiboStatus.getTimestamp());
+			preparedStatement.setInt(5, 1);
+			
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void showWeibo(){
