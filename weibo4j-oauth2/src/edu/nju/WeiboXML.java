@@ -59,7 +59,8 @@ public class WeiboXML {
 						.getTextContent();
 				
 				String timestamp=currentElement.getElementsByTagName("timestamp").item(0).getTextContent();
-				WeiboStatus weiboStatus = new WeiboStatus(id, text,timestamp);
+				WeiboStatus weiboStatus = new WeiboStatus(id, text,"t");
+				weiboStatus.setTimestamp(timestamp);
 				resultList.add(weiboStatus);
 				file.delete();
 			}

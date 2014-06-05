@@ -17,17 +17,17 @@ public class TestDrive {
 	//m;mkk
 	public static void main(String[] args) throws WeiboException, IOException{
 		// TODO Auto-generated method stub
-		Oauth oauth = new Oauth();
-		BareBonesBrowserLaunch.openURL(oauth.authorize("code",null, null));
-		String code =JOptionPane.showInputDialog("请输入URL网址末尾的code：");
-//		String code = "f42a4b564e9fc4a25fafc5c2b30e58d2";
-		accessToken= oauth.getAccessTokenByCode(code);
-		ArrayList<Status> weiboStatusList = new WeiboGetter().getUserTimeLine(accessToken.getAccessToken());
-		for(Status status : weiboStatusList){
-			System.out.println(status.getText());
-		}
-		System.out.println(weiboStatusList.size());
-		System.exit(0);
+//		Oauth oauth = new Oauth();
+//		BareBonesBrowserLaunch.openURL(oauth.authorize("code",null, null));
+//		String code =JOptionPane.showInputDialog("请输入URL网址末尾的code：");
+////		String code = "f42a4b564e9fc4a25fafc5c2b30e58d2";
+//		accessToken= oauth.getAccessTokenByCode(code);
+//		ArrayList<Status> weiboStatusList = new WeiboGetter().getUserTimeLine(accessToken.getAccessToken());
+//		for(Status status : weiboStatusList){
+//			System.out.println(status.getText());
+//		}
+//		System.out.println(weiboStatusList.size());
+//		System.exit(0);
 	}
 
 }

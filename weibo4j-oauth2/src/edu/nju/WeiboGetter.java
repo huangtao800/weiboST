@@ -9,14 +9,14 @@ import weibo4j.model.StatusWapper;
 import weibo4j.model.WeiboException;
 
 public class WeiboGetter {
-	public ArrayList<Status> getUserTimeLine(String access_token) {
+	public static ArrayList<Status> getUserTimeLine(String access_token, String uid) {
 		ArrayList<Status> weiboStatusList = new ArrayList<Status>();
 
 		Timeline tm = new Timeline();
 		tm.client.setToken(access_token);
 		try {
 			StatusWapper status = tm.getUserTimelineByUid(
-					TestDrive.accessToken.getUid(), new Paging(), 50, 0, 0);
+					uid, new Paging(), 50, 0, 0);
 			int time = (int) Math.ceil(status.getTotalNumber() / (50.0)) - 1;
 			System.out.println(time);
 			for (Status s : status.getStatuses()) {
@@ -28,7 +28,7 @@ public class WeiboGetter {
 			String max_id = status.getStatuses().get(size-1).getId();
 			for (int i = 0; i < time; i++) {
 				status = tm.getUserTimelineByUid(
-						TestDrive.accessToken.getUid(), new Paging(), 50,
+						uid, new Paging(), 50,
 						max_id, 0, 0);
 				size = status.getStatuses().size();
 				System.out.println(size);

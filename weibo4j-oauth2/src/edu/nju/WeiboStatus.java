@@ -4,11 +4,12 @@ public class WeiboStatus {
 	private String id;
 	private String text;
 	private String timestamp;
+	private String source;
 	
-	public WeiboStatus(String id, String text,String timestamp){
+	public WeiboStatus(String id, String text,String source){
 		this.id=id;
 		this.text=text;
-		this.timestamp=timestamp;
+		this.source=source;
 	}
 
 	public String getId() {
@@ -33,5 +34,13 @@ public class WeiboStatus {
 
 	public void setTimestamp(String timestamp) {
 		this.timestamp = timestamp;
+	}
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
 	}
 }
