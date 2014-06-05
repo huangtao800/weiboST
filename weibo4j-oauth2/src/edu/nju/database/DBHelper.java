@@ -68,7 +68,7 @@ public class DBHelper {
 		
 	}
 	
-	public void saveWeiboStatus(WeiboStatus weiboStatus){
+	public void saveWeiboTencentStatus(WeiboStatus weiboStatus){
 		try {
 			PreparedStatement preparedStatement = connection.prepareStatement(SAVE_WEIBO_SYCHRONIZE);
 			preparedStatement.setString(1, weiboStatus.getId());
@@ -84,19 +84,37 @@ public class DBHelper {
 		}
 	}
 	
-	public void showWeibo(){
+	
+	
+	/**
+	 * 获取尚未同步的微博列表
+	 * @return
+	 */
+	public ArrayList<WeiboStatus> getUnSynchronizedWeiboStatusList(){
+		ArrayList<WeiboStatus> resultList = new ArrayList<WeiboStatus>();
 		PreparedStatement statement;
 		try {
 			statement = connection.prepareStatement("Select * from weibo;");
 			ResultSet resultSet = statement.executeQuery();
 			while(resultSet.next()){
-				System.out.println(resultSet.getString("text"));
+				if(resultSet.getInt("isSynchronized")==0){
+					String id = resultSet.getString("id");
+					String text = resultSet.getString("text");
+					String source = resultSet.getString("source");
+					String timestamp = resultSet.getString("timestamp");
+					
+					WeiboStatus weiboStatus = new WeiboStatus(id, text, source);
+					weiboStatus.setTimestamp(timestamp);
+					
+					resultList.add(weiboStatus);
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		return resultList;
 	}
 	
 	
