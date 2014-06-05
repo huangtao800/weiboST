@@ -18,6 +18,8 @@ public class DBHelper {
 	
 	private static final String SAVE_WEIBO="INSERT INTO weibo(id, text, source, timestamp) VALUES (?,?,?,?)";
 	private static final String SAVE_WEIBO_SYCHRONIZE="INSERT INTO weibo(id, text, source, timestamp,isSynchronize) VALUES (?,?,?,?,?)";
+	private static final String UPDATE_SYNCHRONIZED="UPDATE weibo SET isSynchronized = ? WHERE id = ?";
+	
 	public static DBHelper instance;
 	Connection connection;
 	
@@ -98,6 +100,19 @@ public class DBHelper {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void changeIsSynchronize(WeiboStatus weiboStatus){
+		try {
+			PreparedStatement statement = connection.prepareStatement(UPDATE_SYNCHRONIZED);
+			statement.setInt(1, 1);
+			statement.setString(2, weiboStatus.getId());
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	/**

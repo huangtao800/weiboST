@@ -65,6 +65,8 @@ public class ViewController {
 				WeiboStatus sinaWeiboStatus = new WeiboStatus(status);
 				dbHelper.saveSinaWeiboStatus(sinaWeiboStatus);
 			}
+			
+			
 		}
 	}
 }
