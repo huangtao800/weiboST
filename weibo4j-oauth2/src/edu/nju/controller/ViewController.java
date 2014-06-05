@@ -2,6 +2,8 @@ package edu.nju.controller;
 
 import java.util.ArrayList;
 
+import weibo4j.Timeline;
+import weibo4j.model.Status;
 import edu.nju.WeiboStatus;
 import edu.nju.apiHelper.SinaAPIHelper;
 import edu.nju.apiHelper.TencentAPIHelper;
@@ -34,5 +36,11 @@ public class ViewController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public boolean postWeibo(String text){
+		Status sinaStatus = sinaAPIHelper.postWeibo(text);
+		WeiboStatus tencentStatus=tencentAPIHelper.postWeibo(text);
+		return true;
 	}
 }

@@ -11,6 +11,10 @@ public class WeiboStatus {
 		this.text=text;
 		this.source=source;
 	}
+	
+	public WeiboStatus(String text){
+		this.text = text;
+	}
 
 	public String getId() {
 		return id;

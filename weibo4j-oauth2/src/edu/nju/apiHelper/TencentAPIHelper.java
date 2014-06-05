@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.IO;
 import com.tencent.weibo.api.StatusesAPI;
+import com.tencent.weibo.api.TAPI;
 import com.tencent.weibo.api.UserAPI;
 import com.tencent.weibo.oauthv2.OAuthV2;
 import com.tencent.weibo.oauthv2.OAuthV2Client;
@@ -92,6 +93,20 @@ public class TencentAPIHelper {
 		return resultList;
 	}
 
+	public WeiboStatus postWeibo(String text){
+		TAPI tAPI = new TAPI(oAuth.getOauthVersion());
+		String resultXML;
+		WeiboStatus resultStatus=null;
+		try {
+			resultXML = tAPI.add(oAuth, "xml", text, "127.0.0.1");
+			resultStatus = WeiboXML.getWeiboStatus(resultXML, text);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return resultStatus;
+	}
+	
 	public static TencentAPIHelper getInstance() {
 		if (instance == null) {
 			instance = new TencentAPIHelper();

@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import edu.nju.WeiboGetter;
 import edu.nju.WeiboStatus;
 import weibo4j.Oauth;
+import weibo4j.Timeline;
 import weibo4j.http.AccessToken;
 import weibo4j.model.Status;
 import weibo4j.model.WeiboException;
@@ -50,5 +51,18 @@ public class SinaAPIHelper {
 			Date createDate = currentStatus.getCreatedAt();
 		}
 		return resultList;
+	}
+	
+	public Status postWeibo(String text){
+		Timeline tm = new Timeline();
+		tm.client.setToken(accessToken.getAccessToken());
+		Status resultStatus =null;
+		try {
+			resultStatus = tm.UpdateStatus(text);
+		} catch (WeiboException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return resultStatus;
 	}
 }

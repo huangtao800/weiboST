@@ -3,6 +3,7 @@ package edu.nju;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
@@ -56,12 +57,24 @@ public class MainFrame extends JFrame {
 		synchronizeButton.setBounds(87, 39, 93, 23);
 		contentPane.add(synchronizeButton);
 		
+		final JTextArea textArea = new JTextArea();
+		textArea.setBounds(47, 100, 184, 61);
+		contentPane.add(textArea);
+		
 		JButton postButton = new JButton("一键发布");
+		postButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String text= textArea.getText();
+				if(text==null||text.equals("")){
+					JOptionPane.showMessageDialog(null, "内容不能为空");
+					return;
+				}
+				controller.postWeibo(text);
+			}
+		});
 		postButton.setBounds(87, 189, 93, 23);
 		contentPane.add(postButton);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(47, 100, 184, 61);
-		contentPane.add(textArea);
+		
 	}
 }

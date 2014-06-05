@@ -17,6 +17,49 @@ import org.xml.sax.SAXException;
 
 public class WeiboXML {
 
+	public static WeiboStatus getWeiboStatus(String xml,String text){
+		File file = new File("weiboXML.xml");
+		FileWriter fWriter;
+		try {
+			fWriter = new FileWriter(file);
+			fWriter.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+			fWriter.write(xml);
+			fWriter.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		WeiboStatus weiboStatus=null;
+		
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder db;
+		
+		try {
+			db = dbf.newDocumentBuilder();
+			Document document = db.parse(new File("weiboXML.xml"));
+			NodeList datalist = document.getElementsByTagName("data");
+			
+			Element element = (Element) datalist.item(0);
+			String id=element.getElementsByTagName("id").item(0).getTextContent();
+			String timestamp=element.getElementsByTagName("id").item(0).getTextContent();
+			weiboStatus = new WeiboStatus(id, text, "t");
+			weiboStatus.setTimestamp(timestamp);
+			
+			file.delete();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return weiboStatus;
+	}
+	
 	public static ArrayList<WeiboStatus> getWeiboStatusList(String xml) {
 		File file = new File("weiboXML.xml");
 		FileWriter fWriter;
@@ -39,7 +82,7 @@ public class WeiboXML {
 			db = dbf.newDocumentBuilder();
 			Document document = db.parse(new File("weiboXML.xml"));
 			NodeList infolist = document.getElementsByTagName("info");
-			System.out.println(infolist.getLength());
+			//System.out.println(infolist.getLength());
 			for (int i = 0; i < infolist.getLength(); i++) {
 				Element currentElement = (Element) infolist.item(i);
 				Element parentElement = (Element) currentElement
