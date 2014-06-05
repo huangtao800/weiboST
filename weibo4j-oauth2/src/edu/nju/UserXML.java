@@ -19,7 +19,7 @@ public class UserXML {
 		FileWriter fWriter;
 		try {
 			fWriter = new FileWriter(file);
-			fWriter.write("<?xml version=\"1.0\" encoding=\"gbk\"?>");
+			fWriter.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
 			fWriter.write(xml);
 			fWriter.close();
 		} catch (IOException e) {
