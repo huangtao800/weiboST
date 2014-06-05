@@ -68,7 +68,7 @@ public class DBHelper {
 		
 	}
 	
-	public void saveWeiboTencentStatus(WeiboStatus weiboStatus){
+	public void saveTencentWeiboStatus(WeiboStatus weiboStatus){
 		try {
 			PreparedStatement preparedStatement = connection.prepareStatement(SAVE_WEIBO_SYCHRONIZE);
 			preparedStatement.setString(1, weiboStatus.getId());
@@ -84,7 +84,21 @@ public class DBHelper {
 		}
 	}
 	
-	
+	public void saveSinaWeiboStatus(WeiboStatus weiboStatus){
+		try {
+			PreparedStatement preparedStatement = connection.prepareStatement(SAVE_WEIBO_SYCHRONIZE);
+			preparedStatement.setString(1, weiboStatus.getId());
+			preparedStatement.setString(2, weiboStatus.getText());
+			preparedStatement.setString(3, "s");
+			preparedStatement.setString(4, weiboStatus.getTimestamp());
+			preparedStatement.setInt(5, 1);
+			
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	/**
 	 * 获取尚未同步的微博列表

@@ -33,7 +33,7 @@ public class ViewController {
 			dbHelper.saveWeiboStatusList(tencentList);
 			dbHelper.saveWeiboStatusList(sinaList);
 			
-			
+			synchronizeToALL();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -46,7 +46,7 @@ public class ViewController {
 		
 		
 		if(sinaStatus!=null&&tencentStatus!=null){
-			dbHelper.saveWeiboTencentStatus(tencentStatus);
+			dbHelper.saveTencentWeiboStatus(tencentStatus);
 			return true;
 		}else {
 			return false;
@@ -59,10 +59,11 @@ public class ViewController {
 			WeiboStatus currentStatus = unSynchronizedList.get(i);
 			if(currentStatus.getSource().equals("s")){
 				WeiboStatus tencentStatus = tencentAPIHelper.postWeibo(currentStatus.getText());
-				dbHelper.saveWeiboTencentStatus(tencentStatus);
+				dbHelper.saveTencentWeiboStatus(tencentStatus);
 			}else{
 				Status status = sinaAPIHelper.postWeibo(currentStatus.getText());
-				
+				WeiboStatus sinaWeiboStatus = new WeiboStatus(status);
+				dbHelper.saveSinaWeiboStatus(sinaWeiboStatus);
 			}
 		}
 	}

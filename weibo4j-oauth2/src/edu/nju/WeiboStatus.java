@@ -1,5 +1,7 @@
 package edu.nju;
 
+import weibo4j.model.Status;
+
 public class WeiboStatus {
 	private String id;
 	private String text;
@@ -14,6 +16,12 @@ public class WeiboStatus {
 	
 	public WeiboStatus(String text){
 		this.text = text;
+	}
+	
+	public WeiboStatus(Status status){
+		this.id=status.getId();
+		this.text = status.getText();
+		
 	}
 
 	public String getId() {
