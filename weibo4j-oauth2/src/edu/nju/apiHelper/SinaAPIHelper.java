@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.swing.JOptionPane;
 
+import edu.nju.CodeJDialog;
 import edu.nju.WeiboGetter;
 import edu.nju.WeiboStatus;
 import weibo4j.Oauth;
@@ -23,7 +24,7 @@ public class SinaAPIHelper {
 		Oauth oauth = new Oauth();
 		try {
 			BareBonesBrowserLaunch.openURL(oauth.authorize("code",null, null));
-			String code =JOptionPane.showInputDialog("请输入URL网址末尾的code：");
+			String code =CodeJDialog.showInput("<html>请先登陆新浪微博账号，然后输入URL末尾的code码<br />（不需要输入“code=”）</html>", null);
 			accessToken= oauth.getAccessTokenByCode(code);
 		} catch (WeiboException e) {
 			// TODO Auto-generated catch block

@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.JDialog;
+
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.IO;
 import com.tencent.weibo.api.StatusesAPI;
 import com.tencent.weibo.api.TAPI;
@@ -12,6 +14,7 @@ import com.tencent.weibo.oauthv2.OAuthV2;
 import com.tencent.weibo.oauthv2.OAuthV2Client;
 import com.tencent.weibo.utils.QHttpClient;
 
+import edu.nju.CodeJDialog;
 import edu.nju.User;
 import edu.nju.UserXML;
 import edu.nju.WeiboStatus;
@@ -145,11 +148,13 @@ public class TencentAPIHelper {
 			System.exit(1);
 		}
 
-		System.out
-				.println("Input the authorization information (eg: code=CODE&openid=OPENID&openkey=OPENKEY) :");
-		Scanner in = new Scanner(System.in);
-		String responseData = in.nextLine();
-		in.close();
+//		System.out
+//				.println("Input the authorization information (eg: code=CODE&openid=OPENID&openkey=OPENKEY) :");
+//		Scanner in = new Scanner(System.in);
+//		String responseData = in.nextLine();
+		String responseData = CodeJDialog.showInput("<html>请先登陆腾讯微博，然后输入URL末尾的信息 <br />(eg: code=CODE&openid=OPENID&openkey=OPENKEY) :</html>", null);
+		
+//		in.close();
 
 		if (OAuthV2Client.parseAuthorization(responseData, oAuth)) {
 			System.out.println("Parse Authorization Information Successfully");
