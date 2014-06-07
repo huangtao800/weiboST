@@ -18,7 +18,7 @@ public class DBHelper {
 	
 	private static final String SAVE_WEIBO="INSERT INTO weibo(id, text, source, timestamp) VALUES (?,?,?,?)";
 	private static final String SAVE_WEIBO_SYCHRONIZE="INSERT INTO weibo(id, text, source, timestamp,isSynchronize) VALUES (?,?,?,?,?)";
-	private static final String UPDATE_SYNCHRONIZED="UPDATE weibo SET isSynchronized = ? WHERE id = ?";
+	private static final String UPDATE_SYNCHRONIZED="UPDATE weibo SET isSynchronize = ? WHERE id = ?";
 	
 	public static DBHelper instance;
 	Connection connection;
@@ -126,7 +126,7 @@ public class DBHelper {
 			statement = connection.prepareStatement("Select * from weibo;");
 			ResultSet resultSet = statement.executeQuery();
 			while(resultSet.next()){
-				if(resultSet.getInt("isSynchronized")==0){
+				if(resultSet.getInt("isSynchronize")==0){
 					String id = resultSet.getString("id");
 					String text = resultSet.getString("text");
 					String source = resultSet.getString("source");

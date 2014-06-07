@@ -60,13 +60,21 @@ public class ViewController {
 			if(currentStatus.getSource().equals("s")){
 				WeiboStatus tencentStatus = tencentAPIHelper.postWeibo(currentStatus.getText());
 				dbHelper.saveTencentWeiboStatus(tencentStatus);
+				
 			}else{
 				Status status = sinaAPIHelper.postWeibo(currentStatus.getText());
 				WeiboStatus sinaWeiboStatus = new WeiboStatus(status);
 				dbHelper.saveSinaWeiboStatus(sinaWeiboStatus);
+				
 			}
 			
-			
+			dbHelper.changeIsSynchronize(currentStatus);
+			try {
+				Thread.sleep(15000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 }
